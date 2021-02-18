@@ -8,5 +8,7 @@
 
 `npm install react-dom`
 
+`npm install package.json`
+
 # To Run
 `npm start`
