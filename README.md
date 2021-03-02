@@ -10,5 +10,12 @@
 
 `npm install package.json`
 
+`yarn install`
+
 # To Run
-`npm start`
+`cd static`
+
+`yarn start`
+
+In another tab of the same folder
+`yarn start-api`
