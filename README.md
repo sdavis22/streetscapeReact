@@ -1,6 +1,8 @@
 # streetscapeReact
 
 # Packages 
+`pip install flask-cors`
+
 `npm install react konva konva-react`
 
 `npm install use-image`
