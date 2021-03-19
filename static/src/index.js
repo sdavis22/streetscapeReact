@@ -82,7 +82,6 @@ const App = () => {
   const [selectedID, selectShape] = React.useState(null);
   let backgroundName = '';
 
-  // var count = 0;
   const checkDeselect = (e) => {
     // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
@@ -96,26 +95,6 @@ const App = () => {
     dragUrl.current = e.target.src;
   }
 
-  const handleDropCanvas = (e) =>
-  {
-    e.preventDefault();
-    // register event position
-    stageRef.current.setPointersPositions(e);
-    // add image
-    images = images.concat([
-        {
-        ...stageRef.current.getPointerPosition(),
-        src: dragUrl.current,
-        },
-    ]);
-    console.log(images);
-  }
-  // TODO: needs work
-  const handleUpload = (fileName) =>
-  {
-    backgroundName = fileName;
-  }
-
   return (
     <Canvas 
     handleDrag={handleDragImg} 
@@ -125,6 +104,7 @@ const App = () => {
     selectedID={selectedID}
     selectShape={selectShape}
     stageRef={stageRef}
+    dragUrl={dragUrl}
     >
     </Canvas>
   );

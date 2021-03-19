@@ -18,10 +18,12 @@ class Canvas extends React.Component
             selectShape: props.selectShape,
             handleDrag: props.handleDrag,
             handleDrop: props.handleDrop,
-            stageRef: props.stageRef
+            stageRef: props.stageRef,
+            dragUrl: props.dragUrl
         };
         this.checkDeselect = this.checkDeselect.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
+        this.handleDropCanvas = this.handleDropCanvas.bind(this);
     }
 
     checkDeselect(event){
@@ -31,6 +33,23 @@ class Canvas extends React.Component
             this.state.selectShape(null);
         }
     }
+    
+    handleDropCanvas(e)
+    {
+      e.preventDefault();
+      // register event position
+      this.state.stageRef.current.setPointersPositions(e);
+      // add image
+
+      let updatedImages = this.state.images.concat([
+          {
+          ...this.state.stageRef.current.getPointerPosition(),
+          src: this.state.dragUrl.current,
+          },
+      ]);
+      this.setState({images: updatedImages});
+    }
+  
 
     componentDidUpdate(prevProps)
     {
@@ -104,7 +123,7 @@ class Canvas extends React.Component
             <ScriptButton></ScriptButton>
             <UploadButton handleSubmit={this.uploadImage}></UploadButton>
             <div
-            onDrop={this.state.handleDrop}
+            onDrop={this.handleDropCanvas}
             onDragOver={(e) => e.preventDefault()}
             >
             <Stage
