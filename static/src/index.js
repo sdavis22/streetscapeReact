@@ -100,7 +100,6 @@ const App = () => {
     handleDrag={handleDragImg} 
     checkDeselect={checkDeselect} 
     images={images}
-    handleDrop={handleDropCanvas}
     selectedID={selectedID}
     selectShape={selectShape}
     stageRef={stageRef}
