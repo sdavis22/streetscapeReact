@@ -4,6 +4,7 @@ import {Image, Transformer } from 'react-konva';
 import useImage from 'use-image';
 import Canvas from './canvas'
 
+// TODO: needs work
 const URLImage = ({ image, isSelected, onSelect, onChange }) => {
   const [img] = useImage(image.src);
   const imgRef = React.createRef();
@@ -17,6 +18,7 @@ const URLImage = ({ image, isSelected, onSelect, onChange }) => {
     });
   };
 
+  // TODO: needs work 
   React.useEffect(() => {
     if (isSelected) {
       // we need to attach transformer manually
@@ -80,7 +82,7 @@ const App = () => {
   const [selectedID, selectShape] = React.useState(null);
   let backgroundName = '';
 
-  var count = 0;
+  // var count = 0;
   const checkDeselect = (e) => {
     // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
@@ -108,7 +110,7 @@ const App = () => {
     ]);
     console.log(images);
   }
-
+  // TODO: needs work
   const handleUpload = (fileName) =>
   {
     backgroundName = fileName;
