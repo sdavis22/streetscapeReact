@@ -18,8 +18,10 @@ class ScriptButton extends React.Component
         fetch('http://127.0.0.1:5000/function', {
             method: 'POST',
             headers: {
+                'Access-Control-Allow-Origin': '*',
                 'Content-type': 'application/json',
               },
+            body: JSON.stringify({input: 'example'}),
             })
               .then(res => res.json())
               .then(res => {

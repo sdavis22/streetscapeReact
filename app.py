@@ -34,12 +34,18 @@ def index():
 
 @app.route("/function", methods=['POST', 'GET', 'OPTIONS'])
 def classify():
-   result = coinflip.flip()
-   response = jsonify({'value': result})
-   response.headers.add('Access-Control-Allow-Origin', '*')
-   response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-   response.headers.add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
-   return response
+   #We have parameters
+   if request.method == 'POST':
+      #Passed as a json, so we can access like this
+      #this is an easy example, but should be applicable for other params
+      #provided that we pass them in as a json through the button
+      result = coinflip.flip(request.get_json()['input'])
+      response = jsonify({'value': result})
+      response.headers.add('Access-Control-Allow-Origin', '*')
+      response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+      response.headers.add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+      return response
+   return "Hello world"
 
 @app.route("/img-upload", methods=['POST', 'GET', 'OPTIONS'])
 def upload():
