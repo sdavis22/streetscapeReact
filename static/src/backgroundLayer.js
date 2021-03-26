@@ -12,33 +12,38 @@ class BackgroundLayer extends React.Component
         };
     }
 
-    componentDidUpdate(props)
+    componentDidUpdate(prevProps)
     {
-        if(this.state.backgroundImage !== props.backgroundImage)
-        {
+        if (this.props.backgroundImage !== prevProps.backgroundImage) {
             const image = new window.Image();
-            image.src = this.state.backgroundImage;
-            if(this.state.fillPatternImage === null)
-                this.setState({backgroundImage: props.backgroundImage, fillPatternImage: image});
+            image.src = this.props.backgroundImage;
+    
+            image.onload = () => {
+                    this.setState({
+                        backgroundImage: this.props.backgroundImage, 
+                        fillPatternImage: image
+                    })
+                }
         }
     }
-
-
+    
     render()
     {
-        return(
-        <Layer>
-            <Rect
-            x={0}
-            y={0}
-            width={window.innerWidth}
-            height={window.innerHeight}
-            listening={false}
-            fillPatternImage={this.state.fillPatternImage}
-            >
-            </Rect>
-        </Layer>
-        );
+        
+            return(
+                this.state.fillPatternImage && <Layer>
+                <Rect
+                x={0}
+                y={0}
+                width={window.innerWidth}
+                height={window.innerHeight}
+                listening={false}
+                fillPatternImage={this.state.fillPatternImage}
+                >
+                </Rect>
+            </Layer>
+            );
+        
     }
 
 }

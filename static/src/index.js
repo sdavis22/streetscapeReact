@@ -4,6 +4,7 @@ import {Image, Transformer } from 'react-konva';
 import useImage from 'use-image';
 import Canvas from './canvas'
 
+// TODO: needs work
 const URLImage = ({ image, isSelected, onSelect, onChange }) => {
   const [img] = useImage(image.src);
   const imgRef = React.createRef();
@@ -17,6 +18,7 @@ const URLImage = ({ image, isSelected, onSelect, onChange }) => {
     });
   };
 
+  // TODO: needs work 
   React.useEffect(() => {
     if (isSelected) {
       // we need to attach transformer manually
@@ -98,7 +100,6 @@ const App = () => {
     handleDrag={handleDragImg} 
     checkDeselect={checkDeselect} 
     images={images}
-    handleDrop={handleDropCanvas}
     selectedID={selectedID}
     selectShape={selectShape}
     stageRef={stageRef}
