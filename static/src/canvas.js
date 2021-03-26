@@ -80,9 +80,7 @@ class Canvas extends React.Component
     
     
     render()
-    {
-        console.log(this.props);
-        console.log(this.state);
+    {    
         return(
             <div>
             Try to drag an image onto the stage:
@@ -136,7 +134,6 @@ class Canvas extends React.Component
             >
                 <BackgroundLayer backgroundImage={this.state.background}></BackgroundLayer>
                 <Layer>
-                {console.log(this.state.images)}
                 {this.state.images.map((image,i) => {
                     return <URLImage
                     id={0} 
