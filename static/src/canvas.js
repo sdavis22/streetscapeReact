@@ -4,6 +4,7 @@ import URLImage from './URLImage'
 import ScriptButton from './scriptButton'
 import UploadButton from './uploadButton'
 import BackgroundLayer from './backgroundLayer'
+import nextId from "react-id-generator";
 
 
 class Canvas extends React.Component
@@ -24,13 +25,18 @@ class Canvas extends React.Component
         this.checkDeselect = this.checkDeselect.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
         this.handleDropCanvas = this.handleDropCanvas.bind(this);
+        this.deleteImage = this.deleteImage.bind(this);
     }
 
     checkDeselect(event){
         // deselect when clicked on empty area
         const clickedOnEmpty = event.target === event.target.getStage();
         if (clickedOnEmpty) {
-            this.state.selectShape(null);
+            console.log('clicked')
+            this.setState({
+                selectShape: null,
+                selectedID: null
+            });
         }
     }
     
@@ -45,6 +51,7 @@ class Canvas extends React.Component
           {
           ...this.state.stageRef.current.getPointerPosition(),
           src: this.state.dragUrl.current,
+          id: nextId()
           },
       ]);
       this.setState({images: updatedImages});
@@ -77,8 +84,21 @@ class Canvas extends React.Component
                 })
               })
     }
-    
-    
+
+    deleteImage(e) {
+        var length = this.state.images.length;
+        var imageCopy = [...this.state.images];
+        for(var i = 0; i < length; i++)
+        {
+            if(imageCopy[i].id === this.state.selectedID)
+            {
+                imageCopy.splice(i,1);
+            }
+            length = imageCopy.length;
+        }
+        this.setState({images: imageCopy});
+        //need to redraw canvas, but how to access?
+    }
     render()
     {    
         return(
@@ -103,20 +123,7 @@ class Canvas extends React.Component
             width="100"
             height="100"
             draggable="false"
-            onClick={(e) => {
-                var length = this.state.images.length;
-                var imageCopy = this.state.images;
-                for(var i = 0; i < length; i++)
-                {
-                    if(imageCopy[i].id === this.state.selectedID)
-                    {
-                        imageCopy = imageCopy.splice(i,1);
-                    }
-                    length = this.state.images.length;
-                }
-                this.setState({images: imageCopy});
-                //need to redraw canvas, but how to access?
-            }}
+            onClick={this.deleteImage}
             />        
             <ScriptButton></ScriptButton>
             <UploadButton handleSubmit={this.uploadImage}></UploadButton>
@@ -142,7 +149,6 @@ class Canvas extends React.Component
                     isSelected={image.id === this.state.selectedID}
                     onSelect={() => {
                         this.setState({selectedID: image.id})
-                        console.log("ID");
                     }}
                     onChange={(newAttrs) => {
                     const imgs = this.state.images.slice();
