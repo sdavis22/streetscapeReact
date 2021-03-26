@@ -1,7 +1,8 @@
 # streetscapeReact
 
-
 # Packages 
+`pip install flask-cors`
+
 `npm install react konva konva-react`
 
 `npm install use-image`
@@ -10,5 +11,12 @@
 
 `npm install package.json`
 
+`yarn install`
+
 # To Run
-`npm start`
+`cd static`
+
+`yarn start`
+
+In another tab of the same folder
+`yarn start-api`
