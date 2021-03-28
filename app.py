@@ -1,10 +1,12 @@
 import os
 import urllib.request
+import base64
 import coinflip
 from flask import Flask, flash, request, redirect, url_for, render_template, jsonify
 from flask_cors import CORS
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
+from PIL import Image, ImageFilter
 
 UPLOAD_FOLDER = 'static/uploads/'
 
@@ -39,8 +41,17 @@ def classify():
       #Passed as a json, so we can access like this
       #this is an easy example, but should be applicable for other params
       #provided that we pass them in as a json through the button
+      img_path = request.get_json()['image']
+      im = Image.open(img_path)
       result = coinflip.flip(request.get_json()['input'])
-      response = jsonify({'value': result})
+      #instead of encoding/decoding, just save it in 'results' folder
+      #and can access from canvas that way
+      flipped_img = coinflip.flipImg(im)
+      new_path = 'static/results/' + img_path[15:]
+      flipped_img.save(new_path)
+      response = jsonify({'value': result,
+         'image': new_path
+         })
       response.headers.add('Access-Control-Allow-Origin', '*')
       response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
       response.headers.add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
@@ -54,6 +65,7 @@ def upload():
          flash('No file part')
          return redirect(request.url)
       background = request.files['background']
+      print(background)
       if background and allowed_file(background.filename):
          filename = secure_filename(background.filename)
          background.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))

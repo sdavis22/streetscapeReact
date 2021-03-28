@@ -26,6 +26,7 @@ class Canvas extends React.Component
         this.uploadImage = this.uploadImage.bind(this);
         this.handleDropCanvas = this.handleDropCanvas.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
+        this.handleScriptSubmit = this.handleScriptSubmit.bind(this);
     }
 
     checkDeselect(event){
@@ -99,6 +100,27 @@ class Canvas extends React.Component
         this.setState({images: imageCopy});
         //need to redraw canvas, but how to access?
     }
+
+    handleScriptSubmit(event)
+    {
+        event.preventDefault();
+        fetch('http://127.0.0.1:5000/function', {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-type': 'application/json',
+              },
+            body: JSON.stringify({input: 'example', image: this.state.background}),
+            })
+              .then(res => res.json())
+              .then(res => {
+                this.setState(
+                  {
+                      background: res.image
+                  }
+              );});
+    }
+
     render()
     {    
         return(
@@ -125,7 +147,7 @@ class Canvas extends React.Component
             draggable="false"
             onClick={this.deleteImage}
             />        
-            <ScriptButton></ScriptButton>
+            <ScriptButton handleSubmit={this.handleScriptSubmit}></ScriptButton>
             <UploadButton handleSubmit={this.uploadImage}></UploadButton>
             <div
             onDrop={this.handleDropCanvas}

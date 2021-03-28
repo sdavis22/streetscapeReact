@@ -7,34 +7,29 @@ class ScriptButton extends React.Component
     {
         super(props)
         this.state = {
+            handleSubmit: props.handleSubmit,
+            image: props.background,
             value: "Click me to flip a python coin!"
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event)
+    componentDidUpdate(prevProps)
     {
-        event.preventDefault();
-        fetch('http://127.0.0.1:5000/function', {
-            method: 'POST',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-type': 'application/json',
-              },
-            body: JSON.stringify({input: 'example'}),
-            })
-              .then(res => res.json())
-              .then(res => {
-                this.setState(
-                  {
-                      value: res.value
-                  }
-              );});
+        if (this.props.background !== prevProps.background) {
+            const image = new window.Image();
+            image.src = this.props.background;
+            image.onload = () => {
+                    this.setState({
+                        image: image, 
+                    })
+                }
+        }
     }
+
     render()
     {
         return(
-            <button className="button" type="button" onClick={this.handleSubmit}>{this.state.value}</button>
+            <button className="button" type="button" onClick={this.state.handleSubmit}>{this.state.value}</button>
         )
     }
     

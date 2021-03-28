@@ -1,4 +1,8 @@
 import random
+from PIL import Image, ImageFilter
+
+def flipImg(img):
+    return img.rotate(90)
 
 def flip(input):
     if random.randint(0,1):
