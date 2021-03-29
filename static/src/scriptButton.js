@@ -1,5 +1,7 @@
 import React from 'react';
-import './button.css'
+import './button.css';
+import { Button } from "react-bootstrap";
+
 
 class ScriptButton extends React.Component
 {
@@ -29,7 +31,13 @@ class ScriptButton extends React.Component
     render()
     {
         return(
-            <button className="button" type="button" onClick={this.state.handleSubmit}>{this.state.value}</button>
+            // <button className="button" type="button" onClick={this.state.handleSubmit}>{this.state.value}</button>
+            <Button
+                variant="danger"
+                onClick={this.state.handleSubmit}
+            >
+                {this.state.value}
+            </Button>
         )
     }
     

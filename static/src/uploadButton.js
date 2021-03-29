@@ -1,5 +1,6 @@
 import React from 'react';
 import './button.css'
+import {Button} from 'react-bootstrap'; 
 
 class UploadButton extends React.Component
 {
@@ -15,11 +16,21 @@ class UploadButton extends React.Component
 
     render()
     {
+        var styles = {
+            spacing: {
+                marginTop: 15,
+                marginBottom: 15
+            }
+        }
         return(
-            <form id="uploadform" method="POST" encType="multipart/form-data" onSubmit={this.handleSubmit}>
-            <input type="file" ref={this.fileInput} id="background" name="background" accept="image/*"></input>
-            <input value="Upload background image" type="submit"></input>
-            </form>
+            <div >
+                <form id="uploadform" method="POST" encType="multipart/form-data" onSubmit={this.handleSubmit} style={styles.spacing}>
+                <input type="file" ref={this.fileInput} id="background" name="background" accept="image/*"></input>
+                <div style={styles.spacing}>
+                <Button type="submit">Upload background image</Button>
+                </div>
+                </form>
+            </div>
         );
     }
     
