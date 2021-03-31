@@ -115,7 +115,8 @@ class Canvas extends React.Component {
             .then(res => {
                 this.setState(
                     {
-                        background: res.image
+                        background: res.image,
+                        images: []
                     }
                 );
             });
