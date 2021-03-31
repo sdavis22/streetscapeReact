@@ -168,7 +168,7 @@ class Canvas extends React.Component {
                             <UploadButton handleSubmit={this.uploadImage}></UploadButton>
 
                             <h3 style={styles.dragDropText}>
-                                <Badge>DRAG AND DROP CLIPARTS</Badge>
+                                <Badge>DRAG AND DROP STICKERS</Badge>
                             </h3>
                             <img
                                 alt="lion"
@@ -198,7 +198,7 @@ class Canvas extends React.Component {
                                     delay={{ show: 250, hide: 400 }}
                                     overlay={
                                         <Tooltip>
-                                        <strong>Select a clipart from the canvas</strong>
+                                        <strong>Select a sticker from the canvas</strong>
                                         </Tooltip>
                                     }
                                 >
@@ -207,7 +207,7 @@ class Canvas extends React.Component {
                                         onClick={this.deleteImage}
                                         disabled={false}
                                     >
-                                        DELETE CLIPART
+                                        DELETE STICKER
                                     </Button>
                                 </OverlayTrigger>
                                 
