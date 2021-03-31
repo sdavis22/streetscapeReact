@@ -17,20 +17,35 @@ class UploadButton extends React.Component
     render()
     {
         var styles = {
-            spacing: {
-                marginTop: 15,
-                marginBottom: 15
+            spacingMainDiv: {
+                marginTop: 55,
+                marginBottom: 50,
+                marginLeft:15,
+                marginRight: 15
+            },
+            uploadButton: {
+                marginTop: 18,
+                display: "grid",
+                alignItems: "center"
             }
+
         }
         return(
-            <div >
-                <form id="uploadform" method="POST" encType="multipart/form-data" onSubmit={this.handleSubmit} style={styles.spacing}>
-                <input type="file" ref={this.fileInput} id="background" name="background" accept="image/*"></input>
-                <div style={styles.spacing}>
-                <Button type="submit">Upload background image</Button>
+            < >
+                <div style={styles.spacingMainDiv}>
+                <form 
+                    id="uploadform" 
+                    method="POST" 
+                    encType="multipart/form-data" 
+                    onSubmit={this.handleSubmit} 
+                    style={styles.spacing} >
+                <input type="file" ref={this.fileInput} id="background" name="background" accept="image/*" required ></input>
+                <div style={styles.uploadButton}>
+                <Button type="submit" variant="dark">UPLOAD BACKGROUND IMAGE</Button>
                 </div>
                 </form>
-            </div>
+                </div>
+            </>
         );
     }
     

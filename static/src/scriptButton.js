@@ -1,6 +1,6 @@
 import React from 'react';
 import './button.css';
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 
 class ScriptButton extends React.Component
@@ -32,12 +32,24 @@ class ScriptButton extends React.Component
     {
         return(
             // <button className="button" type="button" onClick={this.state.handleSubmit}>{this.state.value}</button>
+            <OverlayTrigger
+            placement="right"
+            delay={{ show: 250, hide: 400 }}
+            overlay={
+                <Tooltip>
+                <strong>Items on Canvas will be given to SESAME algorithm</strong>
+                </Tooltip>
+            }
+        >
+
             <Button
                 variant="danger"
                 onClick={this.state.handleSubmit}
             >
-                {this.state.value}
+                TRANSFORM
             </Button>
+
+            </OverlayTrigger>
         )
     }
     
