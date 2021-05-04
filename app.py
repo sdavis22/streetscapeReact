@@ -43,10 +43,17 @@ def classify():
       #provided that we pass them in as a json through the button
       img_path = request.get_json()['image']
       im = Image.open(img_path)
+      #Convert image to png
+      file_ext = im.filename[im.filename.find('.')+1:]
+      if file_ext != 'png':
+         im.save(im.filename[0:im.filename.find('.')+1] + 'png')
+         im1 = Image.open(im.filename[0:im.filename.find('.')+1] + 'png')
+      else:
+         im1 = im
       result = coinflip.flip(request.get_json()['input'])
       #instead of encoding/decoding, just save it in 'results' folder
       #and can access from canvas that way
-      flipped_img = coinflip.flipImg(im)
+      flipped_img = coinflip.flipImg(im1)
       new_path = 'static/results/' + img_path[15:]
       flipped_img.save(new_path)
       response = jsonify({'value': result,
